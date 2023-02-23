@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "TasksList";
+}
+
+<table class="table table-bordered table-striped">
+
+    <thead class="font-weight-bold">
+        <tr>
+            <td>Task</td>
+            <td>Due Date</td>
+            <td>Quadrant</td>
+            <td>Category</td>
+            <td>Completed</td>
+
+        </tr>
+    </thead>
+
+    @* model defining the type. Model is using type that we defined *@
+    <tbody>
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.Task</td>
+                <td>@x.DueDate</td>
+                <td>@x.Quadrant</td>
+                <td>@x.Category.CategoryName</td>
+                <td>@x.Completed</td>
+
+                <td><a asp-controller="Home" asp-action="Edit" asp-route-movieid="@x.TaskID">Edit</a></td>
+                <td><a asp-controller="Home" asp-action="Delete" asp-route-movieid="@x.TaskID">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
