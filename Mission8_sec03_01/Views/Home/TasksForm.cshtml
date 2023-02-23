@@ -2,7 +2,7 @@
     ViewData["Title"] = "Tasks";
 }
 
-@model Mission8_sec03_01.Models.ApplicationResponse
+@model TaskModel
 
 <div class="text-center">
     <h1 class="display-4">Enter A Task</h1>
@@ -16,13 +16,19 @@
         <div asp-validation-summary="All"></div>
 
         <label asp-for="Task">Task:</label>
-        <input asp-for="Task" required /><br />
+        <input asp-for="Task" /><br />
 
         <label asp-for="DueDate">Due Date:</label>
         <input asp-for="DueDate" /><br />
 
-        <label asp-for="Quadrant">Quadrant:</label>
-        <input asp-for="Quadrant" required /><br />
+        <label asp-for="Quadrant">Quadrant: </label>
+        <select asp-for="Quadrant">
+            <option value="">Select a Quadrant</option>
+            <option value="1">Important/Urgent</option>
+            <option value="2">Important/Not Urgent</option>
+            <option value="3">Not Important/Urgent</option>
+            <option value="4">Not Important/Not Urgent</option>
+        </select><br />
 
         <label asp-for="Category">Category:</label>
         <select asp-for="CategoryID">
@@ -40,6 +46,8 @@
             <option value=true>True</option>
             <option value=false>False</option>
         </select><br />
+
+        <input asp-for="TaskID" value="@Model.TaskID" type="hidden"/>
 
         <button type="submit">Submit Task</button>
     </form>

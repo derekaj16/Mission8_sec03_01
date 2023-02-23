@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Quadrants";
 }
+
+@model List<TaskModel>
+
 <br /><br />
 <h1>Time Management Matrix</h1>
 <br /><br />
@@ -11,71 +14,115 @@
           <!-- Headers row -->
           <div class="row">
               <div class="col-sm-2 col-lg-1"></div>
-              <div class="col-sm-5 col-lg-3 border-bottom"><h3>Urgent</h3></div>
-              <div class="col-sm-5 col-lg-3 border-bottom"><h3>Not Urgent</h3></div>
+              <div class="col-sm-5 col-lg-5 border-bottom"><h3>Urgent</h3></div>
+              <div class="col-sm-5 col-lg-5 border-bottom"><h3>Not Urgent</h3></div>
           </div>
           <!-- "Important row" -->
           <div class="row">
               <div class="col-sm-2 col-lg-1 border-right"><h3 class="vertical-text">Important</h3></div>
-              <div class="col-sm-5 col-lg-3 border">
+              <div class="col-sm-5 col-lg-5 border">
                   <table class="table">
                       <thead>
                           <tr>
                               <td>Quadrant 1</td>
                           </tr>
                       </thead>
-                      <tr>
-                          <td>dynamic task</td>
-                          <td> <a href="">Edit</a> </td>
-                          <td> <a href="">Delete</a> </td>
-                      </tr>
+                      @foreach (var x in Model)
+                      {
+                          @if (x.Quadrant == 1)
+                          {
+                              @if (x.Completed == false)
+                              {
+                                <tr>
+                                    <td>@x.Task</td>
+                                    <td>@x.DueDate</td>
+                                    <td>@x.Category.CategoryName</td>
+                                    <td> <a asp-controller="Home" asp-action="EditTask" asp-route-taskid="@x.TaskID">Edit</a> </td>
+                                    <td> <a asp-controller="Home" asp-action="DeleteTask" asp-route-taskid="@x.TaskID">Delete</a> </td>
+                                </tr>
+                              }
+                          }
+                      }
                   </table>
               </div>
 
-              <div class="col-sm-5 col-lg-3 border">
+              <div class="col-sm-5 col-lg-5 border">
                   <table class="table">
                       <thead>
                           <tr>
                               <td>Quadrant 2</td>
                           </tr>
                       </thead>
-                      <tr>
-                          <td>dynamic task</td>
-                          <td> <a href="">Edit</a> </td>
-                          <td> <a href="">Delete</a> </td>
-                      </tr>
+                      @foreach (var x in Model)
+                      {
+                          @if (x.Quadrant == 2)
+                          {
+                              @if (x.Completed == false)
+                              {
+                  <tr>
+                      <td>@x.Task</td>
+                      <td>@x.DueDate</td>
+                      <td>@x.Category.CategoryName</td>
+                      <td> <a asp-controller="Home" asp-action="EditTask" asp-route-taskid="@x.TaskID">Edit</a> </td>
+                      <td> <a asp-controller="Home" asp-action="DeleteTask" asp-route-taskid="@x.TaskID">Delete</a> </td>
+                  </tr>
+                              }
+                          }
+                      }
                   </table>
               </div>
           </div>
           <!-- "Not important" row -->
           <div class="row">
               <div class="col-sm-2 col-lg-1 border-right"><h3 class="vertical-text">Not Important</h3></div>
-              <div class="col-sm-5 col-lg-3 border">
+              <div class="col-sm-5 col-lg-5 border">
                   <table class="table">
                       <thead>
                           <tr>
                               <td>Quadrant 3</td>
                           </tr>
                       </thead>
-                      <tr>
-                          <td>dynamic task</td>
-                          <td> <a href="">Edit</a> </td>
-                          <td> <a href="">Delete</a> </td>
-                      </tr>
+                      @foreach (var x in Model)
+                      {
+                          @if (x.Quadrant == 3)
+                          {
+                              @if (x.Completed == false)
+                              {
+                  <tr>
+                      <td>@x.Task</td>
+                      <td>@x.DueDate</td>
+                      <td>@x.Category.CategoryName</td>
+                      <td> <a asp-controller="Home" asp-action="EditTask" asp-route-taskid="@x.TaskID">Edit</a> </td>
+                      <td> <a asp-controller="Home" asp-action="DeleteTask" asp-route-taskid="@x.TaskID">Delete</a> </td>
+                  </tr>
+                              }
+                          }
+                      }
                   </table>
               </div>
-              <div class="col-sm-5 col-lg-3 border">
+              <div class="col-sm-5 col-lg-5 border">
                   <table class="table">
                       <thead>
                           <tr>
                               <td>Quadrant 4</td>
                           </tr>
                       </thead>
-                      <tr>
-                          <td>dynamic task</td>
-                          <td> <a href="">Edit</a> </td>
-                          <td> <a href="">Delete</a> </td>
-                      </tr>
+                      @foreach (var x in Model)
+                      {
+                          @if (x.Quadrant == 4)
+                          {
+                              @if (x.Completed == false)
+                              {
+                  <tr>
+                      <td>@x.Task</td>
+                      <td>@x.DueDate</td>
+                      <td>@x.Category.CategoryName</td>
+                      <td> <a asp-controller="Home" asp-action="EditTask" asp-route-taskid="@x.TaskID">Edit</a> </td>
+                      <td> <a asp-controller="Home" asp-action="DeleteTask" asp-route-taskid="@x.TaskID">Delete</a> </td>
+                  </tr>
+                              }
+                          }
+                      }
                   </table>
               </div>
           </div>

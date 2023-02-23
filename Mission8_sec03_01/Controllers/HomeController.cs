@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission8_sec03_01.Models;
 using System;
@@ -13,86 +14,84 @@ namespace Mission8_sec03_01.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private TaskDatabaseContext _taskContext { get; set; }
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, TaskDatabaseContext taskContext)
         {
             _logger = logger;
+            _taskContext = taskContext;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-        public IActionResult ViewTasks()
-        {
-            return View();
+            var tasks = _taskContext.Tasks.Include(x => x.Category).ToList();
+            return View("Quadrants", tasks);
         }
 
         [HttpGet]
-        public IActionResult AddTask()
+        public IActionResult TasksForm()
         {
             ViewBag.Categories = _taskContext.Categories.ToList();
             return View(new TaskModel());
         }
         [HttpPost]
-        public IActionResult AddTask(TaskModel task)
+        public IActionResult TasksForm(TaskModel t)
         {
             if (ModelState.IsValid)
             {
-                _taskContext.Add(task);
+                _taskContext.Add(t);
                 _taskContext.SaveChanges();
 
-                return RedirectToAction("ViewTasks");
+                return RedirectToAction("Index");
             }
             else
             {
                 ViewBag.Categories = _taskContext.Categories.ToList();
-
-                return View(task);
+                return View(t);
             }
         }
 
         [HttpGet]
-        public IActionResult Edit(int taskid)
+        public IActionResult EditTask(int taskid)
         {
-            ViewBag.Categories = _taskContext.categories.ToList();
-            var task = _taskContext.movies.Single(m => m.TaskID == taskid);
+            ViewBag.Categories = _taskContext.Categories.ToList();
+            var task = _taskContext.Tasks.Single(m => m.TaskID == taskid);
 
-            return View("AddTask", task);
+            return View("TasksForm", task);
         }
         [HttpPost]
-        public IActionResult Edit(TaskModel task)
+        public IActionResult EditTask(TaskModel t)
         {
             // Check form validity before allowing changes
             if (ModelState.IsValid)
             {
-                _taskContext.Update(task);
+                _taskContext.Update(t);
                 _taskContext.SaveChanges();
 
-                return RedirectToAction("MovieList");
+                return RedirectToAction("Index");
             }
             else // Redirect if invalid
             {
                 ViewBag.Categories = _taskContext.Categories.ToList();
-                return View(task);
+                return View(t);
             }
         }
 
         [HttpGet]
         public IActionResult DeleteTask(int taskid)
         {
-            var task = _taskContext.tasks.Single(t => t.TaskId == taskid);
-            return View(task);
-        }
-        [HttpPost]
-        public IActionResult DeleteTask(Task task)
-        {
-            _taskContext.tasks.Remove(task);
+            var task = _taskContext.Tasks.Single(t => t.TaskID == taskid);
+            _taskContext.Tasks.Remove(task);
             _taskContext.SaveChanges();
 
-            return RedirectToAction("ViewTasks");
+            return RedirectToAction("Index");
         }
+        //[HttpPost]
+        //public IActionResult DeleteTask(TaskModel task)
+        //{
+        //    _taskContext.Tasks.Remove(task);
+        //    _taskContext.SaveChanges();
+
+        //    return RedirectToAction("ViewTasks");
+        //}
 
         public IActionResult Privacy()
         {
