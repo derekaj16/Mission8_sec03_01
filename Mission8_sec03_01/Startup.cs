@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Mission8_sec03_01.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,11 @@ namespace Mission8_sec03_01
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<TaskDatabaseContext>(options =>
+            {
+                options.UseSqlite(Configuration["ConnectionStrings:Mission08Connection"]);
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
