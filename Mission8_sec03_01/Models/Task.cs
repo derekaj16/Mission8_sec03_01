@@ -13,6 +13,8 @@ namespace Mission8_sec03_01.Models
         public int TaskID { get; set; }
         [Required]
         public string Task { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime? DueDate { get; set; }
         [Required]
         public int Quadrant { get; set; }
