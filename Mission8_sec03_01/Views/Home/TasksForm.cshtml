@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Tasks";
+}
+
+@model Mission8_sec03_01.Models.ApplicationResponse
+
+<div class="text-center">
+    <h1 class="display-4">Enter A Task</h1>
+</div>
+
+<br />
+
+<div>
+    <form method="post">
+
+        <div asp-validation-summary="All"></div>
+
+        <label asp-for="Task">Task:</label>
+        <input asp-for="Task" required /><br />
+
+        <label asp-for="DueDate">Due Date:</label>
+        <input asp-for="DueDate" /><br />
+
+        <label asp-for="Quadrant">Quadrant:</label>
+        <input asp-for="Quadrant" required /><br />
+
+        <label asp-for="Category">Category:</label>
+        <select asp-for="CategoryID">
+            <option value="">Select a Category</option>
+            @foreach (Category c in ViewBag.Categories)
+            {
+                <option value="@c.CategoryID">@c.CategoryName</option>
+            }
+
+        </select><br />
+
+        <label asp-for="Completed">Completed:</label>
+        <select asp-for="Completed">
+            <option value="">Select a Category</option>
+            <option value=true>True</option>
+            <option value=false>False</option>
+        </select><br />
+
+        <button type="submit">Submit Task</button>
+    </form>
+</div>
